@@ -4,6 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { Course } from '../model/course';
+import { CoursesService } from '../service/courses.service';
 
 @Component({
   selector: 'app-courses',
@@ -11,25 +12,23 @@ import { Course } from '../model/course';
   styleUrls: ['./courses.component.scss'],
 })
 export class CoursesComponent implements AfterViewInit {
-  displayedColumns: string[] = ['id', 'name', 'gender'];
-  dataSource: MatTableDataSource<Course>;
+  displayedColumns: string[] = ['name'];
 
-  @ViewChild(MatPaginator)
-  paginator!: MatPaginator;
-  @ViewChild(MatSort)
-  sort!: MatSort;
+  dataSource!: MatTableDataSource<Course>;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
 
-  constructor() {
-    const courses: Course[] = [{ id: 'casa', name: 'asd' }];
-    this.dataSource = new MatTableDataSource(courses);
-  }
+  constructor(private courseService: CoursesService) {}
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.courseService.findAll().subscribe((courses) => {
+      this.dataSource = new MatTableDataSource(courses);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    });
   }
 
-  applyFilter(event: Event) {
+  public applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
