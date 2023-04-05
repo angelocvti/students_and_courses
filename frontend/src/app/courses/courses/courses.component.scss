@@ -6,3 +6,11 @@
   font-size: 14px;
   width: 100%;
 }
+
+div.loading-spinner {
+  padding: 25px;
+  background: rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

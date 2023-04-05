@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/internal/Observable';
-import { first } from 'rxjs/operators';
+import { delay, first, Observable } from 'rxjs';
 
 import { Student } from '../model/student';
 
@@ -14,10 +13,10 @@ export class StudentsService {
   constructor(private httpClient: HttpClient) {}
 
   findAll(): Observable<Student[]> {
-    return this.httpClient.get<Student[]>(this.API).pipe(first());
+    return this.httpClient.get<Student[]>(this.API).pipe(first(), delay(4000));
   }
 
-  findById(id: string) {
+  findById(id: string): Observable<Student> {
     return this.httpClient.get<Student>(`${this.API}/${id}`);
   }
 }
