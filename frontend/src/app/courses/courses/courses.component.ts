@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ActivatedRoute, Router } from '@angular/router';
 import { catchError, Observable, of, tap } from 'rxjs';
 import { ErrorDialogComponent } from 'src/app/shared/components/error-dialog/error-dialog.component';
 
@@ -15,7 +16,7 @@ import { CoursesService } from '../service/courses.service';
   styleUrls: ['./courses.component.scss'],
 })
 export class CoursesComponent implements AfterViewInit {
-  displayedColumns: string[] = ['name'];
+  displayedColumns: string[] = ['name', 'active', 'actions'];
 
   courses$!: Observable<Course[]>;
 
@@ -25,7 +26,9 @@ export class CoursesComponent implements AfterViewInit {
 
   constructor(
     private courseService: CoursesService,
-    private matDialog: MatDialog
+    private matDialog: MatDialog,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngAfterViewInit(): void {
@@ -49,6 +52,10 @@ export class CoursesComponent implements AfterViewInit {
     if (this.matTableDataSource.paginator) {
       this.matTableDataSource.paginator.firstPage();
     }
+  }
+
+  public onAdd(): void {
+    this.router.navigate(['new'], { relativeTo: this.activatedRoute });
   }
 
   private onError(errorMessage: string) {

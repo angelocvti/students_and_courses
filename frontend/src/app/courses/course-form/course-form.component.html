@@ -1,0 +1,19 @@
+<mat-card class="min-width">
+  <mat-card-header>
+    <mat-card-title>Courses</mat-card-title>
+  </mat-card-header>
+
+  <mat-card-content>
+    <form [formGroup]="formGroup">
+      <mat-form-field floatLabel="always" class="full-width">
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" />
+      </mat-form-field>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions class="actions-center">
+    <button mat-raised-button color="primary" class="btn-space" (click)="onAdd()">Add</button>
+    <button mat-raised-button (click)="onCancel()">Cancel</button>
+  </mat-card-actions>
+</mat-card>
