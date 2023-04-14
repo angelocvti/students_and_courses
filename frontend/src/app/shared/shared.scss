@@ -1,0 +1,59 @@
+mat-icon.blue-icon {
+  color: aqua;
+}
+
+mat-icon.pink-icon {
+  color: pink;
+}
+
+mat-icon.green-icon {
+  color: aquamarine;
+}
+
+mat-icon.red-icon {
+  color: crimson;
+}
+
+mat-card {
+  max-width: 80%;
+  margin: 2em auto;
+  text-align: center;
+}
+
+div.pageable-div {
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+mat-form-field.input-space {
+  margin-right: 10px;
+}
+
+mat-slide-toggle.switch-space {
+  margin-bottom: 15px;
+}
+
+mat-card-title {
+  color: #fff;
+}
+
+div.loading-spinner {
+  padding: 25px;
+  background: rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+mat-row.detail-row {
+  height: 0;
+  min-height: 0;
+}
+
+mat-row.element-row:not(.example-expanded-row):hover {
+  background: #808080;
+}
+
+.element-row td {
+  border-bottom-width: 0;
+}

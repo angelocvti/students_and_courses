@@ -1,5 +1,9 @@
+import { Location } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormGroup, NonNullableFormBuilder } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { StudentsService } from '../service/students.service';
 
 @Component({
   selector: 'app-student-form',
@@ -7,16 +11,31 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./student-form.component.scss'],
 })
 export class StudentFormComponent {
-  formGroup: FormGroup;
+  form: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
-    this.formGroup = this.formBuilder.group({
-      name: [null],
-      gender: [null],
+  constructor(
+    private formBuilder: NonNullableFormBuilder,
+    private studentsService: StudentsService,
+    private matSnackBar: MatSnackBar,
+    private location: Location
+  ) {
+    this.form = this.formBuilder.group({
+      name: [''],
+      gender: [''],
     });
   }
 
-  onAdd() {}
+  public onAdd(): void {
+    this.studentsService
+      .save(this.form.value)
+      .subscribe((_) => this.onSuccess());
+  }
 
-  onCancel() {}
+  private onSuccess(): void {
+    this.matSnackBar.open('Student added', '', { duration: 3000 });
+  }
+
+  public onCancel() {
+    this.location.back();
+  }
 }
